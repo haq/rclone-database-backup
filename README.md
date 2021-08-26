@@ -1,19 +1,20 @@
-# docker-mysql-backup
-Backup your mysql database container to a s3 bucket.
+# drive-mysql-backup
+
+Backup your mysql database container to google drive.
 
 ## docker-cli
-```bash
+
+```shell
 docker run -d \
-  --name=docker-mysql-backup \
-  -e S3_ENDPOINT=s3_endpoint \
-  -e S3_REGION=s3_region \
-  -e S3_BUCKET=s3_bucket \
-  -e S3_KEY=s3_key \
-  -e S3_SECRET=s3_secret \
+  --name=drive-mysql-backup \
+  -e DRIVE_CLIENT_ID=drive_client_id \
+  -e DRIVE_CLIENT_SECRET=drive_client_secret \
+  -e DRIVE_REFRESH_TOKEN=drive_refresh_token \
+  -e DRIVE_FOLDER_ID=drive_folder_id \
   -e DB_CONTAINER=db_container \
   -e DB_USER=db_user \
   -e DB_PASSWORD=db_password \
   -v /var/run/docker.sock:/var/run/docker.sock \
   --restart unless-stopped \
-  ghcr.io/haq/docker-mysql-backup
+  ghcr.io/haq/drive-mysql-backup
 ```
