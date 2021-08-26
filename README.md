@@ -2,7 +2,7 @@
 
 Backup your mysql database container to google drive.
 
-# info
+## info
 
 the script is run every day at 00:00.
 
@@ -28,10 +28,10 @@ docker run -d \
 
 | Variable            | Description |
 | ------------------- | ----------- |
-| DRIVE_CLIENT_ID     | google api client id `(xxx.apps.googleusercontent.com)` |
+| DRIVE_CLIENT_ID     | google api client id `xxx.apps.googleusercontent.com` |
 | DRIVE_CLIENT_SECRET | google api client secret |
 | DRIVE_REFRESH_TOKEN | google api refresh token |
 | DRIVE_FOLDER_ID     | the id of the google drive folder to upload the files to |
-| DB_CONTAINER        | the name of the container to backup |
+| DB_CONTAINER        | the name of the database container to backup |
 | DB_USER             | the database user that will export the database |
 | DB_PASSWORD         | the password of the database user |

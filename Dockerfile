@@ -16,5 +16,5 @@ COPY . /app
 RUN chmod +x backup.sh
 
 # schedule the cron job
-RUN echo "0 0 * * * cd /app && ash backup.sh" | crontab -
+RUN echo "0 0 * * * cd /app && ./backup.sh" | crontab -
 CMD ["crond", "-f"]
