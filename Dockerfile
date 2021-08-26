@@ -1,24 +1,20 @@
-FROM php:cli-alpine
+FROM alpine:3.14
 
 # update index of available packages
 RUN apk update
 
-# install (docker-cli & tzdata)
-RUN apk add --no-cache docker-cli tzdata
-
-# install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# install (curl & jq & tzdata & docker-cli)
+RUN apk add --no-cache curl jq tzdata docker-cli
 
 # create the app directory
 WORKDIR /app
 
-# copy only the package files
-COPY composer.json composer.lock /app/
-RUN composer install --optimize-autoloader --no-dev
-
 # copy the source
 COPY . /app
 
+# give the upload script execuatable permissions
+RUN chmod +x backup.sh
+
 # schedule the cron job
-RUN echo "0 0 * * * cd /app && php index.php" | crontab -
+RUN echo "0 0 * * * cd /app && ash backup.sh" | crontab -
 CMD ["crond", "-f"]
