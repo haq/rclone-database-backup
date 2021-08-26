@@ -7,6 +7,7 @@ Backup your mysql database container to google drive.
 ```shell
 docker run -d \
   --name=drive-mysql-backup \
+  -e TZ=America/Toronto \
   -e DRIVE_CLIENT_ID=drive_client_id \
   -e DRIVE_CLIENT_SECRET=drive_client_secret \
   -e DRIVE_REFRESH_TOKEN=drive_refresh_token \

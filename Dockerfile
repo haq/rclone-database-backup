@@ -1,10 +1,10 @@
 FROM php:cli-alpine
 
-# updated packages
+# update index of available packages
 RUN apk update
 
-# install docker-cli
-RUN apk add --no-cache docker-cli
+# install (docker-cli & tzdata)
+RUN apk add --no-cache docker-cli tzdata
 
 # install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
