@@ -2,7 +2,7 @@
 
 # get all the database names
 DATABASES=$(
-  docker exec -it "${DB_CONTAINER}" /usr/bin/mysql -u "${DB_USER}" --password="${DB_PASSWORD}" -Bse "show databases" |
+  docker exec "${DB_CONTAINER}" /usr/bin/mysql -u "${DB_USER}" --password="${DB_PASSWORD}" -Bse "show databases" |
     grep -Ev "information_schema|performance_schema|mysql|phpmyadmin"
 )
 
