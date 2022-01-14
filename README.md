@@ -1,37 +1,49 @@
-# drive-mysql-backup
+# rclone-mysql-backup
 
-Backup your mysql database container to google drive.
-
-## info
-
-the script is run every day at 00:00.
+Backup your mysql database container.
 
 ## docker-cli
 
+### create rclone config
+
+```shell
+docker volume create rclone-mysql-backup
+docker run \
+  --rm \
+  -it \
+  -v rclone-mysql-backup:/root/.config/rclone \
+  ghcr.io/haq/rclone-mysql-backup \
+  rclone config
+```
+
+### create container
+
 ```shell
 docker run -d \
-  --name=drive-mysql-backup \
+  --name=rclone-mysql-backup \
   -e TZ=America/Toronto \
-  -e DRIVE_CLIENT_ID=drive_client_id \
-  -e DRIVE_CLIENT_SECRET=drive_client_secret \
-  -e DRIVE_REFRESH_TOKEN=drive_refresh_token \
-  -e DRIVE_FOLDER_ID=drive_folder_id \
+  -e CRON="0 0 * * *" \
+  -e RCLONE_REMOTE=rclone_remote \
+  -e BACKUP_FOLDER=database_backups \
+  -e HEALTH_CHECK_URL=cron_monitoring_service \
   -e DB_CONTAINER=db_container \
   -e DB_USER=db_user \
   -e DB_PASSWORD=db_password \
+  -v rclone-mysql-backup:/root/.config/rclone \
   -v /var/run/docker.sock:/var/run/docker.sock \
   --restart unless-stopped \
-  ghcr.io/haq/drive-mysql-backup
+  ghcr.io/haq/rclone-mysql-backup
 ```
 
 ## environment variables
 
-| Variable            | Description |
-| ------------------- | ----------- |
-| DRIVE_CLIENT_ID     | google api client id `xxx.apps.googleusercontent.com` |
-| DRIVE_CLIENT_SECRET | google api client secret |
-| DRIVE_REFRESH_TOKEN | google api refresh token |
-| DRIVE_FOLDER_ID     | the id of the google drive folder to upload the files to |
-| DB_CONTAINER        | the name of the database container to backup |
-| DB_USER             | the database user that will export the database |
-| DB_PASSWORD         | the password of the database user |
+| Variable         | Description                                     |
+|------------------|-------------------------------------------------|
+| TZ               | the timezone of the container                   |
+| CRON             |                                                 |
+| RCLONE_REMOTE    | the name of the remote used in rclone config    |
+| BACKUP_FOLDER    | the name of the folder to upload the files to   |
+| HEALTH_CHECK_URL | the endpoint of the cron monitoring service     |
+| DB_CONTAINER     | the name of the database container to backup    |
+| DB_USER          | the database user that will export the database |
+| DB_PASSWORD      | the password of that database user              |
