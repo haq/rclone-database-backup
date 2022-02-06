@@ -1,19 +1,15 @@
 FROM alpine:3.15
 
-# install required packages
-RUN apk add --no-cache curl tzdata docker-cli rclone
+RUN apk add --no-cache curl postgresql-client rclone tzdata
 
-# create the app directory
 WORKDIR /app
-
-# copy the source
 COPY . /app
 
-# give the scripts executable permissions
-RUN ["chmod", "+x", "backup.sh"]
-RUN ["chmod", "+x", "entrypoint.sh"]
+COPY --from=linuxserver/mariadb:alpine /usr/bin/mysqldump /usr/bin/mysqldump
 
-# define volume for rclone config
+RUN ["chmod", "+x", "scripts/backup.sh"]
+RUN ["chmod", "+x", "scripts/entrypoint.sh"]
+
 VOLUME ["/root/.config/rclone"]
 
-ENTRYPOINT ["/app/entrypoint.sh"]
+ENTRYPOINT ["/app/scripts/entrypoint.sh"]
