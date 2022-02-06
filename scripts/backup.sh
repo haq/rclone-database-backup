@@ -4,10 +4,10 @@ BACKUP_FILE="$(date +%Y-%m-%d_%H-%M-%S).sql"
 
 echo "exporting database"
 
-case "${DB_TYPE}" in
+case "${DB_CONNECTION}" in
 
   mysql)
-    mysqldump --host="${DB_HOST}" --port="${DB_PORT}" --user="${DB_USER}" --password="${DB_PASSWORD}" "${DATABASE}" > "${BACKUP_FILE}"
+    mysqldump --host="${DB_HOST}" --port="${DB_PORT}" --user="${DB_USERNAME}" --password="${DB_PASSWORD}" "${DB_DATABASE}" > "${BACKUP_FILE}"
     ;;
 
   postgres)

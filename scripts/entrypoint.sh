@@ -2,7 +2,7 @@
 
 function check_env() {
   if [[ -z "$1" ]]; then
-    echo "($1) environment variable is missing a value"
+    echo "environment variable is missing a value"
     exit 1
   fi
 }
@@ -14,19 +14,19 @@ if [[ "$1" == "rclone" ]]; then
 fi
 
 # check if all environment variables are set
-check_env ${TZ}
-check_env ${CRON}
-check_env ${RCLONE_REMOTE}
-check_env ${BACKUP_FOLDER}
-check_env ${DATABASE}
-check_env ${DB_TYPE}
-check_env ${DB_HOST}
-check_env ${DB_PORT}
-check_env ${DB_USER}
-check_env ${DB_PASSWORD}
+check_env "${TZ}"
+check_env "${CRON}"
+check_env "${RCLONE_REMOTE}"
+check_env "${BACKUP_FOLDER}"
+check_env "${DB_CONNECTION}"
+check_env "${DB_HOST}"
+check_env "${DB_PORT}"
+check_env "${DB_DATABASE}"
+check_env "${DB_USERNAME}"
+check_env "${DB_PASSWORD}"
 
 # check if rclone config exists
-rclone config show "${RCLONE_REMOTE}" > /dev/null 2>&1
+rclone config show "${RCLONE_REMOTE}" > /dev/null
 if [[ $? != 0 ]]; then
   echo "rclone config does not exist"
   exit 1
@@ -44,10 +44,10 @@ else
 fi
 
 echo "creating postgres environment variables"
-export PGDATABASE="${DATABASE}"
 export PGHOST="${DB_HOST}"
 export PGPORT="${DB_PORT}"
-export PGUSER="${DB_USER}"
+export PGDATABASE="${DB_DATABASE}"
+export PGUSER="${DB_USERNAME}"
 export PGPASSWORD="${DB_PASSWORD}"
 
 # configure crontab

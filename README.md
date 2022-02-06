@@ -25,11 +25,11 @@ docker run -d \
   -e RCLONE_REMOTE=rclone_remote \
   -e BACKUP_FOLDER=database_backups \
   -e HEALTH_CHECK_URL=cron_monitoring_service \
-  -e DATABASE=db_name \
-  -e DB_TYPE=<mysql or postgres> \
+  -e DB_CONNECTION=<mysql or postgres> \
   -e DB_HOST=db_container \
   -e DB_PORT=db_container \
-  -e DB_USER=db_user \
+  -e DB_DATABASE=db_name \
+  -e DB_USERNAME=db_user \
   -e DB_PASSWORD=db_password \
   -v rclone_database_backup:/root/.config/rclone \
   ghcr.io/haq/rclone-database-backup
