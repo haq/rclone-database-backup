@@ -21,7 +21,7 @@ docker run -d \
   --name=rclone-mysql-backup \
   --restart unless-stopped \
   -e TZ=America/Toronto \
-  -e CRON="0 0 * * *" \
+  -e CRON=0 0 * * * \
   -e RCLONE_REMOTE=rclone_remote \
   -e BACKUP_FOLDER=database_backups \
   -e HEALTH_CHECK_URL=cron_monitoring_service \
