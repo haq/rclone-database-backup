@@ -1,6 +1,6 @@
-# rclone-mysql-backup
+# rclone-database-backup
 
-Backup your mysql database container.
+Backup your database container running in docker.
 
 ## docker-cli
 
