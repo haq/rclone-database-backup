@@ -31,7 +31,6 @@ docker run -d \
   -e DB_PORT=db_container \
   -e DB_USER=db_user \
   -e DB_PASSWORD=db_password \
-  -v /var/run/docker.sock:/var/run/docker.sock \
   -v rclone_database_backup:/root/.config/rclone \
   ghcr.io/haq/rclone-database-backup
 ```
