@@ -26,7 +26,7 @@ check_env ${DB_USER}
 check_env ${DB_PASSWORD}
 
 # check if rclone config exists
-rclone config show "${RCLONE_REMOTE}" > /dev/null
+rclone config show "${RCLONE_REMOTE}" > /dev/null 2>&1
 if [[ $? != 0 ]]; then
   echo "rclone config does not exist"
   exit 1
@@ -43,7 +43,6 @@ else
   echo "rclone config is correct"
 fi
 
-# creating .pgpass file
 echo "creating postgres environment variables"
 export PGDATABASE="${DATABASE}"
 export PGHOST="${DB_HOST}"

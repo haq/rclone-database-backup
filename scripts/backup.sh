@@ -1,6 +1,6 @@
 #!/bin/sh
 
-BACKUP_FILE="$(date +%Y-%m-%d_%T).sql"
+BACKUP_FILE="$(date +%Y-%m-%d_%H-%M-%S).sql"
 
 echo "exporting database"
 
