@@ -40,7 +40,7 @@ rm -f "${BACKUP_FILE}"
 
 echo "making health request"
 
-if [[ -v "${HEALTH_CHECK_URL}" ]]; then
+if [[ -n "${HEALTH_CHECK_URL}" ]]; then
   curl --request GET "${HEALTH_CHECK_URL}" \
     --silent \
     --output /dev/null \
