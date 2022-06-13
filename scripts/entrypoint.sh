@@ -35,7 +35,7 @@ else
 fi
 
 # check if rclone config is functional
-rclone mkdir "${BACKUP_FOLDER}"
+rclone mkdir "${RCLONE_REMOTE}:${BACKUP_FOLDER}"
 if [[ $? != 0 ]]; then
   echo "rclone config is incorrect"
   exit 1
