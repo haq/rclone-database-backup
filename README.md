@@ -18,7 +18,7 @@ docker run --rm -it \
 
 ```shell
 docker run -d \
-  --name=rclone-mysql-backup \
+  --name=rclone-database-backup \
   --restart unless-stopped \
   -e TZ=America/Toronto \
   -e CRON=0 0 * * * \
