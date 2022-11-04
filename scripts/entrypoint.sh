@@ -43,13 +43,6 @@ else
   echo "rclone config is correct"
 fi
 
-echo "creating postgres environment variables"
-export PGHOST="${DB_HOST}"
-export PGPORT="${DB_PORT}"
-export PGDATABASE="${DB_DATABASE}"
-export PGUSER="${DB_USERNAME}"
-export PGPASSWORD="${DB_PASSWORD}"
-
 # configure crontab
 crontab -l | grep -q "backup.sh" && echo "cron entry exists" || echo "${CRON} cd /app/scripts && sh backup.sh > /dev/stdout" | crontab - && echo "created cron entry"
 

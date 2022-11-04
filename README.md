@@ -1,6 +1,6 @@
 # rclone-database-backup
 
-Backup your database container running in docker.
+Use Rclone to backup your MySQL or PostgreSQL database to any remote supported by Rclone.
 
 ## rclone
 
@@ -30,7 +30,7 @@ docker run -d \
   -e RCLONE_REMOTE=rclone_remote \
   -e BACKUP_FOLDER=database_backups \
   -e HEALTH_CHECK_URL=cron_monitoring_service \
-  -e DB_CONNECTION=<mysql or postgres> \
+  -e DB_CONNECTION=mysql_or_postgres \
   -e DB_HOST=db_container \
   -e DB_PORT=db_port \
   -e DB_DATABASE=db_name \
@@ -41,25 +41,30 @@ docker run -d \
 ```
 
 ### docker-compose
-```yaml
-  backup:
-    image: ghcr.io/haq/rclone-database-backup
-    environment:
-      - TZ=America/Toronto
-      - CRON=0 0 * * *
-      - RCLONE_REMOTE=rclone_remote
-      - BACKUP_FOLDER=database_backups
-      - HEALTH_CHECK_URL=cron_monitoring_service
-      - DB_CONNECTION=<mysql or postgres> 
-      - DB_HOST=db_container
-      - DB_PORT=db_port
-      - DB_DATABASE=db_name
-      - DB_USERNAME=db_user
-      - DB_PASSWORD=db_password
-    volumes:
-      - rclone_database_backup:/root/.config/rclone
-    restart: unless-stopped
 
+#### container
+```yaml
+backup:
+  image: ghcr.io/haq/rclone-database-backup
+  environment:
+    - TZ=America/Toronto
+    - CRON=0 0 * * *
+    - RCLONE_REMOTE=rclone_remote
+    - BACKUP_FOLDER=database_backups
+    - HEALTH_CHECK_URL=cron_monitoring_service
+    - DB_CONNECTION=mysql_or_postgres 
+    - DB_HOST=db_container
+    - DB_PORT=db_port
+    - DB_DATABASE=db_name
+    - DB_USERNAME=db_user
+    - DB_PASSWORD=db_password
+  volumes:
+    - rclone_database_backup:/root/.config/rclone
+restart: unless-stopped
+```
+
+#### volume
+```yaml
 volumes:
   rclone_database_backup:
     external: true

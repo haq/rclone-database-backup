@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/ash
 
 BACKUP_FILE="$(date +%Y-%m-%d_%H-%M-%S).sql"
 
@@ -11,7 +11,8 @@ case "${DB_CONNECTION}" in
     ;;
 
   postgres)
-    pg_dump --no-password > "${BACKUP_FILE}"
+    export PGPASSWORD="${DB_PASSWORD}"
+    pg_dump --host="${DB_HOST}" --port="${DB_PORT}" --dbname="${DB_DATABASE}" --username="${DB_USERNAME}" --no-password > "${BACKUP_FILE}"
     ;;
 
   *)
@@ -38,9 +39,8 @@ echo "cleaning up"
 
 rm -f "${BACKUP_FILE}"
 
-echo "making health request"
-
 if [[ -n "${HEALTH_CHECK_URL}" ]]; then
+  echo "making health request"
   curl --request GET "${HEALTH_CHECK_URL}" \
     --silent \
     --output /dev/null \
