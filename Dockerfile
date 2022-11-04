@@ -1,6 +1,6 @@
 FROM alpine:edge
 
-RUN apk --no-cache add curl tzdata
+RUN apk --no-cache add curl postgresql-client tzdata
 
 WORKDIR /app
 COPY . /app

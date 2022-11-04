@@ -39,9 +39,8 @@ echo "cleaning up"
 
 rm -f "${BACKUP_FILE}"
 
-echo "making health request"
-
 if [[ -n "${HEALTH_CHECK_URL}" ]]; then
+  echo "making health request"
   curl --request GET "${HEALTH_CHECK_URL}" \
     --silent \
     --output /dev/null \
