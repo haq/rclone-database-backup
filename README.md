@@ -29,7 +29,8 @@ docker run -d \
   -e CRON=0 0 * * * \
   -e RCLONE_REMOTE=rclone_remote \
   -e BACKUP_FOLDER=database_backups \
-  -e HEALTH_CHECK_URL=cron_monitoring_service \
+  -e BACKUP_AGE=30 \
+  -e HEALTH_CHECK_URL=cron_monitoring_service \ `#optional`
   -e DB_CONNECTION=mysql_or_postgres \
   -e DB_HOST=db_container \
   -e DB_PORT=db_port \
@@ -51,7 +52,8 @@ backup:
     - CRON=0 0 * * *
     - RCLONE_REMOTE=rclone_remote
     - BACKUP_FOLDER=database_backups
-    - HEALTH_CHECK_URL=cron_monitoring_service
+    - BACKUP_AGE=30
+    - HEALTH_CHECK_URL=cron_monitoring_service # optional
     - DB_CONNECTION=mysql_or_postgres 
     - DB_HOST=db_container
     - DB_PORT=db_port

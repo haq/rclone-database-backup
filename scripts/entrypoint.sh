@@ -9,7 +9,7 @@ function check_env() {
 
 # rclone command
 if [[ "$1" == "rclone" ]]; then
-    $*
+    "$*"
     exit 0
 fi
 
@@ -18,6 +18,7 @@ check_env "${TZ}"
 check_env "${CRON}"
 check_env "${RCLONE_REMOTE}"
 check_env "${BACKUP_FOLDER}"
+check_env "${BACKUP_AGE}"
 check_env "${DB_CONNECTION}"
 check_env "${DB_HOST}"
 check_env "${DB_PORT}"
