@@ -63,5 +63,3 @@ echo "starting crond"
 
 # start crond
 crond -l 2 -f
-
-echo "==================================="
