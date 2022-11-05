@@ -7,10 +7,17 @@ function check_env() {
   fi
 }
 
+function check_file() {
+  if [[ ! -f "$1" ]]; then
+    echo "sqlite database not found"
+    exit 1
+  fi
+}
+
 # rclone command
 if [[ "$1" == "rclone" ]]; then
-    "$*"
-    exit 0
+  "$*"
+  exit 0
 fi
 
 # check if all environment variables are set
@@ -20,11 +27,16 @@ check_env "${RCLONE_REMOTE}"
 check_env "${BACKUP_FOLDER}"
 check_env "${BACKUP_AGE}"
 check_env "${DB_CONNECTION}"
-check_env "${DB_HOST}"
-check_env "${DB_PORT}"
-check_env "${DB_DATABASE}"
-check_env "${DB_USERNAME}"
-check_env "${DB_PASSWORD}"
+if [[ "${DB_CONNECTION}" == "sqlite" ]]; then
+  check_env "${DB_FILE}"
+  check_file "/database/${DB_FILE}"
+else
+  check_env "${DB_HOST}"
+  check_env "${DB_PORT}"
+  check_env "${DB_DATABASE}"
+  check_env "${DB_USERNAME}"
+  check_env "${DB_PASSWORD}"
+fi
 
 # check if rclone config exists
 rclone config show "${RCLONE_REMOTE}" > /dev/null
@@ -36,7 +48,7 @@ else
 fi
 
 # check if rclone config is functional
-rclone mkdir "${RCLONE_REMOTE}:${BACKUP_FOLDER}"
+rclone mkdir "${RCLONE_REMOTE}:${BACKUP_FOLDER}" > /dev/null
 if [[ $? != 0 ]]; then
   echo "rclone config is incorrect"
   exit 1
@@ -51,3 +63,5 @@ echo "starting crond"
 
 # start crond
 crond -l 2 -f
+
+echo "==================================="
