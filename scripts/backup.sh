@@ -46,7 +46,7 @@ rm -f "${BACKUP_FILE}"
 
 echo "deleting any old backups"
 
-rclone delete --min-age "${BACKUP_AGE}"d "${RCLONE_REMOTE}:${BACKUP_FOLDER}"
+rclone delete --min-age "${BACKUP_AGE}"d --include "*.{sql,sqlite}" "${RCLONE_REMOTE}:${BACKUP_FOLDER}"
 
 if [[ -n "${HEALTH_CHECK_URL}" ]]; then
   echo "making health request"
