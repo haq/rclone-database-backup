@@ -1,6 +1,5 @@
 # rclone-database-backup
-
-Use Rclone to back up your MySQL, PostgreSQL or SQLite database to any remote.
+Use Rclone to back up your MySQL, PostgreSQL or SQLite database.
 
 ## rclone
 
@@ -29,7 +28,6 @@ backup:
     - RCLONE_REMOTE=rclone_remote
     - BACKUP_FOLDER=database_backups
     - BACKUP_AGE=30
-    - HEALTH_CHECK_URL=cron_monitoring_service # optional
     - DB_CONNECTION=mysql_or_postgres_or_sqlite
     - DB_FILE=path_to_sqlite_database_file.sqlite # sqlite only
     - # mysql or postgres only

@@ -2,7 +2,6 @@ FROM alpine:edge
 
 # install required packages
 RUN apk --no-cache add \
-    curl \
     postgresql-client \
     rclone \
     sqlite \

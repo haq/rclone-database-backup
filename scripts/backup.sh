@@ -1,4 +1,4 @@
-#!/bin/ash
+#!/bin/sh
 
 BACKUP_FILE="$(date +%Y-%m-%d_%H-%M-%S).sql"
 
@@ -47,14 +47,6 @@ rm -f "${BACKUP_FILE}"
 echo "deleting any old backups"
 
 rclone delete --min-age "${BACKUP_AGE}"d --include "*.{sql,sqlite}" "${RCLONE_REMOTE}:${BACKUP_FOLDER}"
-
-if [[ -n "${HEALTH_CHECK_URL}" ]]; then
-  echo "making health request"
-  curl --request GET "${HEALTH_CHECK_URL}" \
-    --silent \
-    --output /dev/null \
-    --max-time 15
-fi
 
 echo "done"
 echo "==================================="
