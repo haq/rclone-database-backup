@@ -2,7 +2,7 @@
 
 BACKUP_FILE="$(date +%Y-%m-%d_%H-%M-%S).sql"
 
-color "exporting database"
+echo "exporting database"
 
 case "${DB_CONNECTION}" in
 
@@ -21,32 +21,32 @@ case "${DB_CONNECTION}" in
     ;;
 
   *)
-    color "invalid database type provided"
+    echo "invalid database type provided"
     exit 1
     ;;
 
 esac
 
 if [ "$?" != 0 ]; then
-  color "could not export database"
+  echo "could not export database"
   exit 1
 fi
 
-color "uploading file"
+echo "uploading file"
 
 rclone copy "${BACKUP_FILE}" "${RCLONE_REMOTE}:${BACKUP_FOLDER}"
 if [ "$?" != 0 ]; then
-  color "rclone copy failed"
+  echo "rclone copy failed"
   exit 1
 fi
 
-color "deleting local backup file"
+echo "deleting local backup file"
 
 rm -f "${BACKUP_FILE}"
 
-color "deleting any old backups"
+echo "deleting any old backups"
 
 rclone delete --min-age "${BACKUP_AGE}"d --include "*.{sql,sqlite}" "${RCLONE_REMOTE}:${BACKUP_FOLDER}"
 
-color "done"
-color "==================================="
+echo "done"
+echo "==================================="
