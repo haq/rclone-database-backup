@@ -1,14 +1,21 @@
+![create and publish docker image](https://github.com/haq/rclone-database-backup/actions/workflows/docker-publish.yml/badge.svg)
+![docker image size](https://ghcr-badge.egpl.dev/haq/rclone-database-backup/size)
+![github code size in bytes](https://img.shields.io/github/languages/code-size/haq/rclone-database-backup)
+
 # rclone-database-backup
+
 Use Rclone to back up your MySQL, PostgreSQL or SQLite database.
 
 ## rclone
 
 ### create volume
+
 ```shell
 docker volume create rclone_database_backup
 ```
 
 ### configure rclone remote
+
 ```shell
 docker run --rm -it \
   -v rclone_database_backup:/root/.config/rclone \
@@ -19,6 +26,7 @@ docker run --rm -it \
 ## docker-compose
 
 ### container
+
 ```yaml
 backup:
   image: ghcr.io/haq/rclone-database-backup
@@ -43,6 +51,7 @@ backup:
 ```
 
 ### volume
+
 ```yaml
 volumes:
   rclone_database_backup:
